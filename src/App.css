@@ -1,6 +1,7 @@
 body {
-  font-family: 'Josefin Sans';
-  background-color: #FFFAFB;
+  font-family: 'Hanken Grotesk', sans-serif;
+  background-color: #121414;
+  color: #e2e2e2;
 }
 
 * {
@@ -142,3 +143,51 @@ body {
     width: 280px;
   }
 }
+
+/* Kinetic Cinema Theme Utilities */
+.kinetic-text-stroke {
+  color: transparent;
+  -webkit-text-stroke: 1px #ffb59e;
+}
+
+.kinetic-button-gradient {
+  background: linear-gradient(45deg, #d10235 0%, #ff571a 100%) !important;
+  color: #ffffff !important;
+  border-radius: 0px !important;
+  text-transform: uppercase !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.kinetic-button-gradient:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 4px 20px rgba(209, 2, 53, 0.4) !important;
+}
+
+.kinetic-button-ghost {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 0px !important;
+  text-transform: uppercase !important;
+  font-family: 'Space Grotesk', sans-serif !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.kinetic-button-ghost:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  height: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #1e2020;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ff571a;
+  border-radius: 2px;
+}

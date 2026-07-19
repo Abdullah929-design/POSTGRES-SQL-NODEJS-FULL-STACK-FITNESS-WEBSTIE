@@ -1,11 +1,11 @@
 import Box from '@mui/material/Box';
 import Banner from '../components/Banner';
-import Search from '../components/Search';
+import FeaturesSection from '../components/FeaturesSection';
 const Home = () => {
   return (
     <Box>
-        <Banner/>
-        <Search/>
+      <Banner />
+      <FeaturesSection />
     </Box>
   )
 }

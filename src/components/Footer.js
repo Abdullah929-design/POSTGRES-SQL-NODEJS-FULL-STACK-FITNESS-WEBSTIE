@@ -1,160 +1,122 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Link, Divider, IconButton } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import { Facebook, Twitter, Instagram, YouTube, FitnessCenter, LocationOn, Phone, Email } from '@mui/icons-material';
-
-const FooterContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: '#1a1a1a',
-  color: '#ffffff',
-  padding: theme.spacing(6, 0),
-  marginTop: 'auto',
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(4, 0),
-  },
-}));
-
-const FooterTitle = styled(Typography)(({ theme }) => ({
-  fontWeight: 700,
-  marginBottom: theme.spacing(2),
-  color: '#FF8A00',
-  fontSize: '1.2rem',
-  textTransform: 'uppercase',
-  letterSpacing: '1px',
-}));
-
-const FooterLink = styled(Link)(({ theme }) => ({
-  color: '#ffffff',
-  display: 'block',
-  marginBottom: theme.spacing(1),
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    color: '#FF2625',
-    transform: 'translateX(5px)',
-  },
-}));
-
-const SocialIcon = styled(IconButton)(({ theme }) => ({
-  color: '#ffffff',
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  marginRight: theme.spacing(1),
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    backgroundColor: '#FF2625',
-    transform: 'translateY(-3px)',
-  },
-}));
-
-const ContactItem = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: theme.spacing(2),
-  color: '#ffffff',
-}));
+import { Box, Typography, Link, Stack } from '@mui/material';
+import PublicIcon from '@mui/icons-material/Public';
+import ShareIcon from '@mui/icons-material/Share';
 
 const Footer = () => {
   return (
-    <FooterContainer component="footer">
-      <Container maxWidth="lg">
-        <Grid container spacing={4}>
-          {/* About Column */}
-          <Grid item xs={12} sm={6} md={3}>
-            <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                <FitnessCenter sx={{ color: '#FF2625', fontSize: '2rem', mr: 1 }} />
-                <Typography variant="h6" component="div" sx={{ 
-                  fontWeight: 800,
-                  background: 'linear-gradient(45deg, #FF2625 30%, #FF8A00 90%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent'
-                }}>
-                  POWERGYM
-                </Typography>
-              </Box>
-              <Typography variant="body2" sx={{ mb: 2 }}>
-                Your premier destination for fitness training and workout excellence. 
-                We're dedicated to helping you achieve your fitness goals.
-              </Typography>
-              <Box>
-                <SocialIcon aria-label="Facebook">
-                  <Facebook />
-                </SocialIcon>
-                <SocialIcon aria-label="Twitter">
-                  <Twitter />
-                </SocialIcon>
-                <SocialIcon aria-label="Instagram">
-                  <Instagram />
-                </SocialIcon>
-                <SocialIcon aria-label="YouTube">
-                  <YouTube />
-                </SocialIcon>
-              </Box>
-            </Box>
-          </Grid>
-
-          {/* Quick Links Column */}
-          <Grid item xs={12} sm={6} md={3}>
-            <FooterTitle variant="h6">Quick Links</FooterTitle>
-            <FooterLink href="#" underline="none">Home</FooterLink>
-            <FooterLink href="#" underline="none">Workouts</FooterLink>
-            <FooterLink href="#" underline="none">Exercises</FooterLink>
-            <FooterLink href="#" underline="none">Trainers</FooterLink>
-            <FooterLink href="#" underline="none">Pricing</FooterLink>
-            <FooterLink href="#" underline="none">Blog</FooterLink>
-          </Grid>
-
-          {/* Programs Column */}
-          <Grid item xs={12} sm={6} md={3}>
-            <FooterTitle variant="h6">Programs</FooterTitle>
-            <FooterLink href="#" underline="none">Strength Training</FooterLink>
-            <FooterLink href="#" underline="none">Cardio Programs</FooterLink>
-            <FooterLink href="#" underline="none">Fat Burning</FooterLink>
-            <FooterLink href="#" underline="none">Body Building</FooterLink>
-            <FooterLink href="#" underline="none">CrossFit</FooterLink>
-            <FooterLink href="#" underline="none">Yoga</FooterLink>
-          </Grid>
-
-          {/* Contact Column */}
-          <Grid item xs={12} sm={6} md={3}>
-            <FooterTitle variant="h6">Contact Us</FooterTitle>
-            <ContactItem>
-              <LocationOn sx={{ color: '#FF2625', mr: 1 }} />
-              <Typography variant="body2">
-                123 Fitness Street, Gym City, 10001
-              </Typography>
-            </ContactItem>
-            <ContactItem>
-              <Phone sx={{ color: '#FF2625', mr: 1 }} />
-              <Typography variant="body2">(555) 123-4567</Typography>
-            </ContactItem>
-            <ContactItem>
-              <Email sx={{ color: '#FF2625', mr: 1 }} />
-              <Typography variant="body2">info@powergym.com</Typography>
-            </ContactItem>
-          </Grid>
-        </Grid>
-
-        <Divider sx={{ 
-          borderColor: 'rgba(255, 255, 255, 0.1)', 
-          my: 4,
-          borderWidth: '1px'
-        }} />
-
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', sm: 'row' }, 
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <Typography variant="body2" sx={{ mb: { xs: 2, sm: 0 } }}>
-            © {new Date().getFullYear()} PowerGym. All rights reserved.
+    <Box
+      component="footer"
+      sx={{
+        backgroundColor: '#0c0f0f',
+        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+        py: { xs: '40px', md: '64px' },
+        width: '100%',
+      }}
+    >
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        justifyContent="space-between"
+        alignItems="center"
+        gap="32px"
+        sx={{
+          maxWidth: '1440px',
+          mx: 'auto',
+          px: { xs: '24px', md: '64px' },
+          width: '100%',
+        }}
+      >
+        {/* Brand & Copyright */}
+        <Stack gap="12px" sx={{ alignItems: { xs: 'center', md: 'flex-start' }, textAlign: { xs: 'center', md: 'left' } }}>
+          <Typography
+            sx={{
+              fontFamily: "'Anybody', sans-serif",
+              fontSize: '32px',
+              fontWeight: 900,
+              fontStyle: 'italic',
+              textTransform: 'uppercase',
+              color: '#e2e2e2',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            KINETIC
           </Typography>
-          <Box sx={{ display: 'flex' }}>
-            <FooterLink href="#" underline="none" sx={{ mr: 2 }}>Privacy Policy</FooterLink>
-            <FooterLink href="#" underline="none">Terms of Service</FooterLink>
-          </Box>
-        </Box>
-      </Container>
-    </FooterContainer>
+          <Typography
+            sx={{
+              fontFamily: "'Hanken Grotesk', sans-serif",
+              fontSize: '12px',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+              color: 'rgba(226, 226, 226, 0.4)',
+            }}
+          >
+            © {new Date().getFullYear()} KINETIC PERFORMANCE. ALL RIGHTS RESERVED.
+          </Typography>
+        </Stack>
+
+        {/* Links */}
+        <Stack
+          direction="row"
+          gap="24px"
+          sx={{
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+          }}
+        >
+          {['Privacy Policy', 'Terms of Service', 'Contact', 'Careers', 'Support'].map((item) => (
+            <Link
+              key={item}
+              href="#"
+              underline="none"
+              sx={{
+                fontFamily: "'Hanken Grotesk', sans-serif",
+                fontSize: '14px',
+                fontWeight: 500,
+                color: 'rgba(226, 226, 226, 0.4)',
+                transition: 'color 0.3s ease',
+                '&:hover': {
+                  color: '#ffb59e',
+                },
+              }}
+            >
+              {item}
+            </Link>
+          ))}
+        </Stack>
+
+        {/* Social Icons */}
+        <Stack direction="row" gap="16px">
+          {[
+            { icon: <PublicIcon sx={{ fontSize: '20px' }} />, label: 'Website' },
+            { icon: <ShareIcon sx={{ fontSize: '20px' }} />, label: 'Share' },
+          ].map((social, idx) => (
+            <Box
+              key={idx}
+              aria-label={social.label}
+              sx={{
+                width: '40px',
+                height: '40px',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'rgba(226, 226, 226, 0.6)',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  borderColor: '#ffb59e',
+                  color: '#ffb59e',
+                  boxShadow: '0 0 10px rgba(255, 181, 158, 0.2)',
+                },
+              }}
+            >
+              {social.icon}
+            </Box>
+          ))}
+        </Stack>
+      </Stack>
+    </Box>
   );
 };
 

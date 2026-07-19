@@ -1,3 +1,13 @@
+-- Table 0: users
+-- Stores authentication accounts
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table 1: food_items
 CREATE TABLE IF NOT EXISTS food_items (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -13,7 +23,7 @@ CREATE TABLE IF NOT EXISTS food_items (
 -- Stores user meal entries
 CREATE TABLE IF NOT EXISTS user_meals (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     food_id INTEGER REFERENCES food_items(id) ON DELETE SET NULL,
     custom_name VARCHAR(255),
     servings NUMERIC(5, 2) NOT NULL DEFAULT 1.0,
@@ -29,7 +39,7 @@ CREATE TABLE IF NOT EXISTS user_meals (
 -- Table 3: user_goals
 -- Stores user nutrition goals
 CREATE TABLE IF NOT EXISTS user_goals (
-    user_id INTEGER PRIMARY KEY,
+    user_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
     daily_calories INTEGER NOT NULL DEFAULT 2000,
     daily_carbs INTEGER NOT NULL DEFAULT 250,
     daily_protein INTEGER NOT NULL DEFAULT 150,
@@ -46,6 +56,7 @@ CREATE INDEX IF NOT EXISTS idx_user_meals_user_date ON user_meals(user_id, date)
 CREATE INDEX IF NOT EXISTS idx_user_meals_date ON user_meals(date);
 CREATE INDEX IF NOT EXISTS idx_food_items_name ON food_items(name);
 CREATE INDEX IF NOT EXISTS idx_user_meals_meal_type ON user_meals(meal_type);
+CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 
 -- ============================================
 -- Insert Sample Data (Optional)

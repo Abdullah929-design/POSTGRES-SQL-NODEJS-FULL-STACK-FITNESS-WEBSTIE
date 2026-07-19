@@ -8,7 +8,7 @@ const Search = () => {
   const API_BASE_URL = "https://exercisedb.p.rapidapi.com";
   const API_HOST = "exercisedb.p.rapidapi.com";
   const API_KEY = "4f1bf5105dmshc01806e19a87df9p12271bjsn6d88532c6a2d";
-  
+
   // YouTube API configuration
   const YOUTUBE_API_KEY = "AIzaSyAwSxuo0maJvPrZlthYSZNatqRkBzm-8ds";
 
@@ -22,92 +22,106 @@ const Search = () => {
   const [activeBodyPart, setActiveBodyPart] = useState('all');
   const exercisesPerPage = 9; // Increased from 10 to 9 for better layout
 
+  // Kinetic theme tokens
+  const KINETIC = {
+    surface: '#121414',
+    surfaceContainer: '#1e2020',
+    surfaceContainerLow: '#0c0f0f',
+    onSurface: '#e2e2e2',
+    onSurfaceVariant: '#e6beb2',
+    primary: '#ffb59e',
+    primaryHover: '#ff571a',
+    primarySoft: 'rgba(255, 87, 26, 0.12)',
+    outline: 'rgba(255, 255, 255, 0.1)',
+  };
+
   // Custom styled components
   const GradientButton = styled(Button)({
-    background: 'linear-gradient(45deg, #FF2625 0%, #FF8A00 90%)',
+    background: 'linear-gradient(45deg, #d10235 0%, #ff571a 100%)',
     border: 0,
-    borderRadius: 8,
+    borderRadius: 0, // SHARP corners
     color: 'white',
     height: 56,
     padding: '0 30px',
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontWeight: 700,
+    letterSpacing: '0.15em',
+    textTransform: 'uppercase',
+    transition: 'all 0.3s ease',
     '&:hover': {
-      background: 'linear-gradient(45deg, #CC1F1A 0%, #E67C00 90%)',
+      filter: 'brightness(1.1)',
+      boxShadow: '0 4px 20px rgba(209, 2, 53, 0.4)',
     },
   });
 
   const BodyPartButton = styled(Button, {
     shouldForwardProp: (prop) => prop !== 'active',
   })(({ theme, active }) => ({
-    minWidth: 150,
-    height: 60,
-    borderRadius: 8,
-    textTransform: 'capitalize',
-    fontWeight: 600,
-    background: active 
-      ? 'linear-gradient(45deg, #CC1F1A 0%, #E67C00 90%)'
-      : 'linear-gradient(45deg, #FF2625 0%, #FF8A00 90%)',
-    color: 'white',
-    boxShadow: active 
-      ? '0 4px 8px rgba(255, 105, 135, .4)'
-      : '0 2px 4px rgba(255, 105, 135, .3)',
-    transform: active ? 'scale(1.05)' : 'scale(1)',
+    minWidth: 140,
+    height: 50,
+    borderRadius: 0, // SHARP corners
+    textTransform: 'uppercase',
+    fontFamily: "'Space Grotesk', sans-serif",
+    fontWeight: 700,
+    letterSpacing: '0.1em',
+    background: active
+      ? 'linear-gradient(45deg, #d10235 0%, #ff571a 100%)'
+      : 'transparent',
+    color: active ? '#ffffff' : 'rgba(226, 226, 226, 0.6)',
+    border: active ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+    transition: 'all 0.3s ease',
     '&:hover': {
-      background: 'linear-gradient(45deg, #CC1F1A 0%, #E67C00 90%)',
-      boxShadow: '0 4px 8px rgba(255, 105, 135, .4)',
-      transform: 'scale(1.05)',
+      background: active
+        ? 'linear-gradient(45deg, #d10235 0%, #ff571a 100%)'
+        : 'rgba(255, 255, 255, 0.05)',
+      borderColor: active ? 'none' : 'rgba(255, 255, 255, 0.4)',
+      color: '#ffffff',
     },
     [theme.breakpoints.down('sm')]: {
-      minWidth: 120,
-      height: 50,
-      fontSize: '0.8rem',
+      minWidth: 110,
+      height: 45,
+      fontSize: '0.75rem',
     },
   }));
 
   const ExerciseCard = styled(Box)(({ theme }) => ({
-    padding: theme.spacing(3),
-    border: '1px solid rgba(255, 38, 37, 0.2)',
-    borderRadius: 12,
-    background: 'rgba(255, 255, 255, 0.9)',
-    boxShadow: '0 4px 20px rgba(255, 105, 135, 0.1)',
+    padding: theme.spacing(4),
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    borderRadius: 0, // SHARP corners
+    background: '#1e2020',
     transition: 'all 0.3s ease',
     cursor: 'pointer',
     '&:hover': {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 8px 25px rgba(255, 105, 135, 0.2)',
+      boxShadow: '0 0 20px rgba(255, 87, 26, 0.2)',
+      borderColor: 'rgba(255, 87, 26, 0.4)',
     },
   }));
 
   const CustomPagination = styled(Pagination)(({ theme }) => ({
     '& .MuiPaginationItem-root': {
-      color: '#FF2625',
-      fontWeight: 600,
-      fontSize: '1rem',
+      color: 'rgba(226, 226, 226, 0.6)',
+      fontWeight: 700,
+      fontSize: '0.9rem',
+      fontFamily: "'Space Grotesk', sans-serif",
       margin: '0 4px',
       minWidth: '40px',
       height: '40px',
-      borderRadius: '8px',
-      border: '1px solid rgba(255, 38, 37, 0.2)',
-      background: 'rgba(255, 255, 255, 0.8)',
+      borderRadius: 0, // SHARP corners
+      border: '1px solid rgba(255, 255, 255, 0.1)',
+      background: '#1e2020',
+      transition: 'all 0.3s ease',
       '&:hover': {
-        backgroundColor: 'rgba(255, 38, 37, 0.1)',
-        borderColor: '#FF2625',
-        transform: 'translateY(-2px)',
+        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        borderColor: 'rgba(255, 255, 255, 0.4)',
+        color: '#ffffff',
       },
     },
     '& .MuiPaginationItem-page.Mui-selected': {
-      backgroundColor: '#FF2625',
+      background: 'linear-gradient(45deg, #d10235 0%, #ff571a 100%)',
       color: 'white',
-      borderColor: '#FF2625',
+      border: 'none',
       '&:hover': {
-        backgroundColor: '#CC1F1A',
-        borderColor: '#CC1F1A',
-      },
-    },
-    '& .MuiPaginationItem-previousNext': {
-      backgroundColor: 'rgba(255, 138, 0, 0.1)',
-      '&:hover': {
-        backgroundColor: 'rgba(255, 138, 0, 0.2)',
+        filter: 'brightness(1.1)',
       },
     },
   }));
@@ -123,11 +137,11 @@ const Search = () => {
             "x-rapidapi-key": API_KEY,
           },
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
+
         const data = await response.json();
         setBodyParts(['all', ...data]);
       } catch (err) {
@@ -146,19 +160,19 @@ const Search = () => {
       const response = await fetch(
         `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=3&type=video&q=${encodeURIComponent(query)}&key=${YOUTUBE_API_KEY}&order=relevance&videoDuration=medium`
       );
-      
+
       if (!response.ok) {
         console.error(`YouTube API error! Status: ${response.status}`);
         return null;
       }
-      
+
       const data = await response.json();
-      
+
       if (!data.items || data.items.length === 0) {
         console.log(`No YouTube videos found for: ${exerciseName}`);
         return null;
       }
-      
+
       const videoId = data.items[0]?.id?.videoId;
       console.log(`Found video for ${exerciseName}: ${videoId}`);
       return videoId || null;
@@ -175,9 +189,9 @@ const Search = () => {
       setError(null);
       setExercises([]);
       setCurrentPage(1);
-      
+
       let exercises = [];
-      
+
       // If searching by body part
       if (bodyPart && bodyPart !== 'all') {
         const response = await fetch(`${API_BASE_URL}/exercises/bodyPart/${bodyPart}`, {
@@ -187,16 +201,16 @@ const Search = () => {
             "x-rapidapi-key": API_KEY,
           },
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        
+
         const data = await response.json();
         exercises = data || [];
-         console.log(`✅ Fetched ${exercises.length} exercises for body part: ${bodyPart}`);
-        
-        
+        console.log(`✅ Fetched ${exercises.length} exercises for body part: ${bodyPart}`);
+
+
         // If there's also a search term, filter the results
         if (searchTerm && searchTerm.trim()) {
           exercises = exercises.filter(exercise =>
@@ -216,12 +230,12 @@ const Search = () => {
             "x-rapidapi-key": API_KEY,
           },
         });
-        
+
         if (nameResponse.ok) {
           const nameData = await nameResponse.json();
           exercises = [...exercises, ...(nameData || [])];
         }
-        
+
         // Also try searching by target muscle
         const targetResponse = await fetch(`${API_BASE_URL}/exercises/target/${searchTerm}`, {
           method: "GET",
@@ -230,12 +244,12 @@ const Search = () => {
             "x-rapidapi-key": API_KEY,
           },
         });
-        
+
         if (targetResponse.ok) {
           const targetData = await targetResponse.json();
           exercises = [...exercises, ...(targetData || [])];
         }
-        
+
         // Also try searching by equipment
         const equipmentResponse = await fetch(`${API_BASE_URL}/exercises/equipment/${searchTerm}`, {
           method: "GET",
@@ -244,12 +258,12 @@ const Search = () => {
             "x-rapidapi-key": API_KEY,
           },
         });
-        
+
         if (equipmentResponse.ok) {
           const equipmentData = await equipmentResponse.json();
           exercises = [...exercises, ...(equipmentData || [])];
         }
-        
+
         // Remove duplicates based on exercise ID
         const uniqueExercises = exercises.filter((exercise, index, self) =>
           index === self.findIndex(e => e.id === exercise.id)
@@ -265,7 +279,7 @@ const Search = () => {
             "x-rapidapi-key": API_KEY,
           },
         });
-        
+
         if (!response.ok) {
           // Fallback to bodyPart back if the limit/offset doesn't work
           const fallbackResponse = await fetch(`${API_BASE_URL}/exercises/bodyPart/back`, {
@@ -275,7 +289,7 @@ const Search = () => {
               "x-rapidapi-key": API_KEY,
             },
           });
-          
+
           if (fallbackResponse.ok) {
             const fallbackData = await fallbackResponse.json();
             exercises = fallbackData.slice(0, 50) || []; // Limit to 50 for performance
@@ -285,20 +299,20 @@ const Search = () => {
           exercises = data || [];
         }
       }
-      
+
       if (!exercises || exercises.length === 0) {
         setError("No exercises found for your search criteria.");
         return;
       }
-      
+
       setExercises(exercises);
-      
+
       // Enhance with YouTube videos in the background
       exercises.slice(0, 20).forEach(async (exercise) => { // Limit video fetching to first 20 for performance
         setVideoLoading(prev => ({ ...prev, [exercise.id]: true }));
         try {
           const videoId = await fetchYouTubeVideo(exercise.name);
-          setExercises(prev => 
+          setExercises(prev =>
             prev.map(ex => ex.id === exercise.id ? { ...ex, videoId } : ex)
           );
         } catch (videoError) {
@@ -306,7 +320,7 @@ const Search = () => {
         }
         setVideoLoading(prev => ({ ...prev, [exercise.id]: false }));
       });
-      
+
     } catch (err) {
       setError("Failed to fetch exercises. Please try again later.");
       console.error("Search error:", err);
@@ -350,424 +364,477 @@ const Search = () => {
   };
 
   return (
-    <Stack 
-      alignItems="center" 
-      justifyContent="center" 
-      mt="45px" 
-      p="20px"
-      spacing={4}
-      sx={{ 
-        width: '100%',
-        background: 'linear-gradient(to bottom, #FFF8F8, #FFF0F0)',
-        minHeight: '100vh'
-      }}
-    >
-      <Typography 
-        fontWeight={900} 
-        sx={{ 
-          fontSize: { lg: '48px', xs: '36px' }, 
-          textAlign: 'center',
-          background: 'linear-gradient(45deg, #FF2625 30%, #FF8A00 90%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          textShadow: '2px 2px 4px rgba(255, 105, 135, 0.2)'
+    <Box sx={{
+      background: '#121414',
+      minHeight: '100vh',
+      py: { xs: '60px', md: '100px' },
+      px: { xs: '24px', md: '64px' },
+      width: '100%'
+    }}>
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        spacing={5}
+        sx={{
+          width: '100%',
+          maxWidth: '1200px',
+          mx: 'auto'
         }}
       >
-        POWERFUL EXERCISES <br/> FOR YOUR WORKOUT
-      </Typography>
-      
-      <Box sx={{ 
-        width: '100%', 
-        maxWidth: '800px', 
-        display: 'flex', 
-        gap: 2,
-        position: 'relative'
-      }}>
-        <TextField 
-          fullWidth
-          sx={{ 
-            '& .MuiOutlinedInput-root': {
-              height: '56px',
-              '& fieldset': {
-                borderColor: '#FF2625',
-                borderWidth: '2px',
-                borderRadius: '8px'
-              },
-              '&:hover fieldset': {
-                borderColor: '#FF8A00'
-              },
-              '&.Mui-focused fieldset': {
-                borderColor: '#FF8A00',
-                boxShadow: '0 0 0 2px rgba(255, 138, 0, 0.2)'
-              }
-            }
-          }} 
-          value={search}
-          onChange={(e) => setSearch(e.target.value.toLowerCase())} 
-          onKeyPress={handleKeyPress}
-          type="text" 
-          placeholder="Search Exercises, Muscles, or Equipment..." 
-        />
-        <GradientButton 
-          onClick={handleSearch} 
-          disabled={isLoading}
-        >
-          {isLoading ? <CircularProgress size={24} color="inherit" /> : 'SEARCH'}
-        </GradientButton>
-      </Box>
-
-      {error && (
-        <Box sx={{
-          p: 2,
-          borderRadius: 2,
-          backgroundColor: 'rgba(255, 38, 37, 0.1)',
-          borderLeft: '4px solid #FF2625'
-        }}>
-          <Typography color="#FF2625" sx={{ textAlign: 'center', fontWeight: 600 }}>
-            {error}
+        {/* Search Header */}
+        <Stack spacing={2} alignItems="center">
+          <Typography
+            sx={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '12px',
+              fontWeight: 700,
+              color: '#ffb59e',
+              letterSpacing: '0.3em',
+              textTransform: 'uppercase',
+            }}
+          >
+            Find Your Focus
           </Typography>
-        </Box>
-      )}
+          <Typography
+            sx={{
+              fontFamily: "'Anybody', sans-serif",
+              fontSize: { lg: '48px', xs: '32px' },
+              fontWeight: 900,
+              fontStyle: 'italic',
+              textAlign: 'center',
+              color: '#e2e2e2',
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1,
+            }}
+          >
+            POWERFUL EXERCISES <br />
+            FOR <span className="kinetic-text-stroke">YOUR</span> WORKOUT
+          </Typography>
+        </Stack>
 
-      <Box sx={{ width: '100%' }}>
-        <Typography variant="h5" gutterBottom sx={{ 
-          fontWeight: 600,
-          mb: 2,
-          color: '#FF2625'
+        <Box sx={{
+          width: '100%',
+          maxWidth: '800px',
+          display: 'flex',
+          gap: 2,
+          position: 'relative'
         }}>
-          Filter by Body Part
-        </Typography>
-        <Box sx={{ 
-          display: 'flex', 
-          gap: 2, 
-          overflowX: 'auto', 
-          py: 2,
-          scrollbarWidth: 'none',
-          '&::-webkit-scrollbar': { display: 'none' }
-        }}>
-          {bodyParts.map((part) => (
-            <BodyPartButton 
-              key={part} 
-              active={activeBodyPart === part}
-              onClick={() => handleBodyPartClick(part)}
-            >
-              {part}
-            </BodyPartButton>
-          ))}
+          <TextField
+            fullWidth
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: '56px',
+                backgroundColor: '#0c0f0f', // Very dark background
+                color: '#e2e2e2',
+                fontFamily: "'Hanken Grotesk', sans-serif",
+                '& fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.1)',
+                  borderWidth: '1px',
+                  borderRadius: '0px' // SHARP corners
+                },
+                '&:hover fieldset': {
+                  borderColor: 'rgba(255, 255, 255, 0.3)'
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#ff571a', // Electric Orange
+                  borderWidth: '1.5px',
+                }
+              },
+              '& input::placeholder': {
+                color: 'rgba(226, 226, 226, 0.3)',
+                opacity: 1
+              }
+            }}
+            value={search}
+            onChange={(e) => setSearch(e.target.value.toLowerCase())}
+            onKeyPress={handleKeyPress}
+            type="text"
+            placeholder="Search Exercises, Muscles, or Equipment..."
+          />
+          <GradientButton
+            onClick={handleSearch}
+            disabled={isLoading}
+          >
+            {isLoading ? <CircularProgress size={24} color="inherit" /> : 'SEARCH'}
+          </GradientButton>
         </Box>
-      </Box>
 
-      <Box sx={{ width: '100%', maxWidth: '1200px' }}>
-        <Typography variant="h5" gutterBottom sx={{ 
-          fontWeight: 800,
-          mb: 3,
-          color: '#FF2625',
-          textTransform: 'uppercase',
-          letterSpacing: '1px'
-        }}>
-          {exercises.length > 0 ? `${exercises.length} EXERCISES FOUND` : 'FIND YOUR EXERCISES'}
-        </Typography>
-        
-        {isLoading && exercises.length === 0 ? (
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center',
-            py: 8,
-            flexDirection: 'column',
-            gap: 3
+        {error && (
+          <Box sx={{
+            p: 2,
+            borderRadius: 0,
+            backgroundColor: 'rgba(209, 2, 53, 0.1)',
+            borderLeft: `4px solid #d10235`
           }}>
-            <CircularProgress size={80} thickness={4} sx={{ color: '#FF8A00' }} />
-            <Typography variant="h6" color="#FF2625" fontWeight={600}>
-              Loading exercises...
+            <Typography color="#ffb4ab" sx={{ textAlign: 'center', fontWeight: 600, fontFamily: "'Space Grotesk', sans-serif" }}>
+              {error}
             </Typography>
           </Box>
-        ) : (
-          <>
-            <Stack spacing={4}>
-              {currentExercises.map((exercise) => (
-                <ExerciseCard 
-                  key={exercise.id}
-                  onClick={() => handleCardClick(exercise.name)}
-                >
-                  <Typography 
-                    variant="h5" 
-                    gutterBottom 
-                    sx={{ 
-                      textTransform: 'capitalize',
-                      color: '#FF2625',
-                      fontWeight: 800,
-                      fontSize: '1.8rem',
-                      mb: 3
-                    }}
+        )}
+
+        <Box sx={{ width: '100%' }}>
+          <Typography sx={{
+            fontFamily: "'Space Grotesk', sans-serif",
+            fontSize: '14px',
+            fontWeight: 700,
+            color: '#ffb59e',
+            textTransform: 'uppercase',
+            letterSpacing: '0.2em',
+            mb: 3
+          }}>
+            Target Areas
+          </Typography>
+          <Box sx={{
+            display: 'flex',
+            gap: 2,
+            overflowX: 'auto',
+            py: 1,
+            scrollbarWidth: 'none',
+            '&::-webkit-scrollbar': { display: 'none' }
+          }}>
+            {bodyParts.map((part) => (
+              <BodyPartButton
+                key={part}
+                active={activeBodyPart === part}
+                onClick={() => handleBodyPartClick(part)}
+              >
+                {part}
+              </BodyPartButton>
+            ))}
+          </Box>
+        </Box>
+
+        <Box sx={{ width: '100%' }}>
+          <Stack spacing={1} sx={{ mb: 4 }}>
+            <Typography sx={{
+              fontFamily: "'Space Grotesk', sans-serif",
+              fontSize: '14px',
+              fontWeight: 700,
+              color: '#ffb59e',
+              textTransform: 'uppercase',
+              letterSpacing: '0.2em',
+            }}>
+              Workout Library
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: "'Anybody', sans-serif",
+                fontSize: { xs: '28px', md: '36px' },
+                fontWeight: 900,
+                fontStyle: 'italic',
+                color: '#e2e2e2',
+                textTransform: 'uppercase',
+                letterSpacing: '-0.01em',
+              }}
+            >
+              {exercises.length > 0 ? `${exercises.length} EXERCISES FOUND` : 'EXPLOSIVE MOVEMENTS'}
+            </Typography>
+          </Stack>
+
+          {isLoading && exercises.length === 0 ? (
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              py: 8,
+              flexDirection: 'column',
+              gap: 3
+            }}>
+              <CircularProgress size={80} thickness={4} sx={{ color: '#ff571a' }} />
+              <Typography variant="h6" color="#ffb59e" fontWeight={600} sx={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                Loading exercises...
+              </Typography>
+            </Box>
+          ) : (
+            <>
+              <Stack spacing={4}>
+                {currentExercises.map((exercise) => (
+                  <ExerciseCard
+                    key={exercise.id}
+                    onClick={() => handleCardClick(exercise.name)}
                   >
-                    {exercise.name}
-                  </Typography>
-                  
-                  <Box sx={{ 
-                    display: 'flex', 
-                    flexDirection: { xs: 'column', md: 'row' }, 
-                    gap: 4,
-                    alignItems: 'flex-start'
-                  }}>
-                    <Box sx={{ flex: 1 }}>
-                      <Box sx={{ 
-                        display: 'flex', 
-                        flexWrap: 'wrap',
-                        gap: 2,
+                    <Typography
+                      variant="h5"
+                      gutterBottom
+                      sx={{
+                        textTransform: 'capitalize',
+                        color: KINETIC.onSurface,
+                        fontFamily: "'Anybody', sans-serif",
+                        fontWeight: 800,
+                        fontSize: '1.8rem',
+                        fontStyle: 'italic',
                         mb: 3
-                      }}>
+                      }}
+                    >
+                      {exercise.name}
+                    </Typography>
+
+                    <Box sx={{
+                      display: 'flex',
+                      flexDirection: { xs: 'column', md: 'row' },
+                      gap: 4,
+                      alignItems: 'flex-start'
+                    }}>
+                      <Box sx={{ flex: 1 }}>
                         <Box sx={{
-                          backgroundColor: 'rgba(255, 38, 37, 0.1)',
-                          borderRadius: 2,
-                          p: 1.5,
-                          flex: '1 1 200px'
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: 2,
+                          mb: 3
                         }}>
-                          <Typography variant="subtitle2" color="text.secondary">
-                            BODY PART
-                          </Typography>
-                          <Typography fontWeight={700} color="#FF2625" sx={{ textTransform: 'capitalize' }}>
-                            {exercise.bodyPart}
-                          </Typography>
-                        </Box>
-                        
-                        <Box sx={{
-                          backgroundColor: 'rgba(255, 138, 0, 0.1)',
-                          borderRadius: 2,
-                          p: 1.5,
-                          flex: '1 1 200px'
-                        }}>
-                          <Typography variant="subtitle2" color="text.secondary">
-                            EQUIPMENT
-                          </Typography>
-                          <Typography fontWeight={700} color="#FF8A00" sx={{ textTransform: 'capitalize' }}>
-                            {exercise.equipment}
-                          </Typography>
-                        </Box>
-                        
-                        <Box sx={{
-                          backgroundColor: 'rgba(255, 38, 37, 0.1)',
-                          borderRadius: 2,
-                          p: 1.5,
-                          flex: '1 1 200px'
-                        }}>
-                          <Typography variant="subtitle2" color="text.secondary">
-                            TARGET
-                          </Typography>
-                          <Typography fontWeight={700} color="#FF2625" sx={{ textTransform: 'capitalize' }}>
-                            {exercise.target}
-                          </Typography>
-                        </Box>
-                      </Box>
-                      
-                      {exercise.secondaryMuscles && exercise.secondaryMuscles.length > 0 && (
-                        <Box sx={{ mb: 3 }}>
-                          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                            SECONDARY MUSCLES
-                          </Typography>
-                          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                            {exercise.secondaryMuscles.map((muscle, index) => (
-                              <Box key={index} sx={{
-                                backgroundColor: 'rgba(255, 138, 0, 0.2)',
-                                borderRadius: 4,
-                                px: 2,
-                                py: 0.5
-                              }}>
-                                <Typography variant="body2" fontWeight={600} color="#E67C00" sx={{ textTransform: 'capitalize' }}>
-                                  {muscle}
-                                </Typography>
-                              </Box>
-                            ))}
+                          <Box sx={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            borderRadius: 0,
+                            p: 1.5,
+                            flex: '1 1 200px'
+                          }}>
+                            <Typography variant="subtitle2" sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', color: 'rgba(226, 226, 226, 0.4)', letterSpacing: '0.15em', fontWeight: 700 }}>
+                              BODY PART
+                            </Typography>
+                            <Typography sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 700, color: '#ffb59e', textTransform: 'uppercase', mt: 0.5 }}>
+                              {exercise.bodyPart}
+                            </Typography>
+                          </Box>
+
+                          <Box sx={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            borderRadius: 0,
+                            p: 1.5,
+                            flex: '1 1 200px'
+                          }}>
+                            <Typography variant="subtitle2" sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', color: 'rgba(226, 226, 226, 0.4)', letterSpacing: '0.15em', fontWeight: 700 }}>
+                              EQUIPMENT
+                            </Typography>
+                            <Typography sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 700, color: '#ff571a', textTransform: 'uppercase', mt: 0.5 }}>
+                              {exercise.equipment}
+                            </Typography>
+                          </Box>
+
+                          <Box sx={{
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            borderRadius: 0,
+                            p: 1.5,
+                            flex: '1 1 200px'
+                          }}>
+                            <Typography variant="subtitle2" sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', color: 'rgba(226, 226, 226, 0.4)', letterSpacing: '0.15em', fontWeight: 700 }}>
+                              TARGET
+                            </Typography>
+                            <Typography sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 700, color: '#ffb59e', textTransform: 'uppercase', mt: 0.5 }}>
+                              {exercise.target}
+                            </Typography>
                           </Box>
                         </Box>
-                      )}
-                      
-                      <Box>
-                        <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                          INSTRUCTIONS
-                        </Typography>
-                        <Box component="ol" sx={{ 
-                          pl: 2,
-                          '& li': { mb: 1 }
-                        }}>
-                          {exercise.instructions && exercise.instructions.length > 0 ? (
-                            exercise.instructions.slice(0, 5).map((instruction, index) => (
-                              <li key={index}>
-                                <Typography variant="body1">
-                                  {instruction}
-                                </Typography>
-                              </li>
-                            ))
-                          ) : (
-                            <Typography color="text.secondary">
-                              No instructions available
+
+                        {exercise.secondaryMuscles && exercise.secondaryMuscles.length > 0 && (
+                          <Box sx={{ mb: 3 }}>
+                            <Typography variant="subtitle2" sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', color: 'rgba(226, 226, 226, 0.4)', letterSpacing: '0.1em', fontWeight: 700, mb: 1 }}>
+                              SECONDARY MUSCLES
                             </Typography>
-                          )}
+                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                              {exercise.secondaryMuscles.map((muscle, index) => (
+                                <Box key={index} sx={{
+                                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                                  borderRadius: 0,
+                                  px: 2,
+                                  py: 0.5
+                                }}>
+                                  <Typography variant="body2" sx={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, color: '#ff571a', textTransform: 'uppercase', fontSize: '12px' }}>
+                                    {muscle}
+                                  </Typography>
+                                </Box>
+                              ))}
+                            </Box>
+                          </Box>
+                        )}
+
+                        <Box>
+                          <Typography variant="subtitle2" sx={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', color: 'rgba(226, 226, 226, 0.4)', letterSpacing: '0.1em', fontWeight: 700, mb: 1 }}>
+                            INSTRUCTIONS
+                          </Typography>
+                          <Box component="ol" sx={{
+                            pl: 2,
+                            '& li': { mb: 1 }
+                          }}>
+                            {exercise.instructions && exercise.instructions.length > 0 ? (
+                              exercise.instructions.slice(0, 5).map((instruction, index) => (
+                                <li key={index}>
+                                  <Typography variant="body1" sx={{ fontFamily: "'Hanken Grotesk', sans-serif", color: 'rgba(226, 226, 226, 0.8)', fontSize: '14px' }}>
+                                    {instruction}
+                                  </Typography>
+                                </li>
+                              ))
+                            ) : (
+                              <Typography sx={{ color: 'rgba(226, 226, 226, 0.4)', fontFamily: "'Hanken Grotesk', sans-serif", fontSize: '14px' }}>
+                                No instructions available
+                              </Typography>
+                            )}
+                          </Box>
                         </Box>
                       </Box>
-                    </Box>
-                    
-                    <Box sx={{ 
-                      flex: 1, 
-                      width: '100%',
-                      minHeight: '300px',
-                      borderRadius: 2,
-                      overflow: 'hidden',
-                      position: 'relative',
-                      backgroundColor: '#f5f5f5',
-                      border: '1px solid rgba(255, 38, 37, 0.2)'
-                    }}>
-                      {videoLoading[exercise.id] ? (
-                        <Box sx={{ 
-                          display: 'flex', 
-                          justifyContent: 'center', 
-                          alignItems: 'center',
-                          height: '100%',
-                          flexDirection: 'column',
-                          gap: 2,
-                          background: 'linear-gradient(45deg, rgba(255,38,37,0.05) 0%, rgba(255,138,0,0.05) 100%)'
-                        }}>
-                          <CircularProgress size={60} sx={{ color: '#FF8A00' }} />
-                          <Typography variant="body2" color="#FF2625" fontWeight={600}>
-                            Loading video tutorial...
-                          </Typography>
-                        </Box>
-                      ) : exercise.videoId ? (
-                        <Box sx={{ 
-                          position: 'relative', 
-                          width: '100%', 
-                          height: '100%',
-                          minHeight: '300px'
-                        }}>
-                          <iframe
-                            width="100%"
-                            height="100%"
-                            src={`https://www.youtube.com/embed/${exercise.videoId}?modestbranding=1&rel=0&showinfo=0&fs=1&autoplay=0`}
-                            title={`${exercise.name} tutorial`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            style={{
-                              borderRadius: '8px',
-                              minHeight: '300px'
-                            }}
-                          />
-                          
-                          <Box sx={{ 
-                            position: 'absolute',
-                            top: 10,
-                            right: 10,
-                            zIndex: 1
+
+                      <Box sx={{
+                        flex: 1,
+                        width: '100%',
+                        minHeight: '300px',
+                        borderRadius: 0, // SHARP corners
+                        overflow: 'hidden',
+                        position: 'relative',
+                        backgroundColor: '#0c0f0f',
+                        border: `1px solid rgba(255, 255, 255, 0.1)`
+                      }}>
+                        {videoLoading[exercise.id] ? (
+                          <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100%',
+                            flexDirection: 'column',
+                            gap: 2,
+                            background: `linear-gradient(45deg, rgba(255, 87, 26, 0.05) 0%, rgba(255,138,0,0.02) 100%)`
                           }}>
+                            <CircularProgress size={60} sx={{ color: '#ff571a' }} />
+                            <Typography variant="body2" color="#ffb59e" fontWeight={600} sx={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                              Loading video tutorial...
+                            </Typography>
+                          </Box>
+                        ) : exercise.videoId ? (
+                          <Box sx={{
+                            position: 'relative',
+                            width: '100%',
+                            height: '100%',
+                            minHeight: '300px'
+                          }}>
+                            <iframe
+                              width="100%"
+                              height="100%"
+                              src={`https://www.youtube.com/embed/${exercise.videoId}?modestbranding=1&rel=0&showinfo=0&fs=1&autoplay=0`}
+                              title={`${exercise.name} tutorial`}
+                              frameBorder="0"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                              style={{
+                                borderRadius: '0px', // SHARP corners
+                                minHeight: '300px',
+                                border: 0,
+                              }}
+                            />
+
+                            <Box sx={{
+                              position: 'absolute',
+                              top: 10,
+                              right: 10,
+                              zIndex: 1
+                            }}>
+                              <Button
+                                variant="contained"
+                                size="small"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  window.open(`https://www.youtube.com/watch?v=${exercise.videoId}`, '_blank');
+                                }}
+                                className="kinetic-button-gradient"
+                                sx={{
+                                  color: 'white',
+                                  minWidth: 'auto',
+                                  px: 2,
+                                  py: 1,
+                                  fontSize: '11px',
+                                  letterSpacing: '0.1em',
+                                }}
+                              >
+                                Watch on YouTube
+                              </Button>
+                            </Box>
+                          </Box>
+                        ) : (
+                          <Box sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100%',
+                            p: 4,
+                            textAlign: 'center',
+                            flexDirection: 'column',
+                            gap: 2,
+                            background: `linear-gradient(45deg, rgba(255, 87, 26, 0.05) 0%, rgba(255,138,0,0.02) 100%)`
+                          }}>
+                            <Typography color="#ffb59e" variant="h6" fontWeight={700} sx={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                              Video Tutorial Not Available
+                            </Typography>
+                            <Typography color="rgba(226, 226, 226, 0.6)" variant="body2" sx={{ fontFamily: "'Hanken Grotesk', sans-serif" }}>
+                              We couldn't find a video for this exercise. Try searching YouTube for "{exercise.name} exercise".
+                            </Typography>
                             <Button
-                              variant="contained"
-                              size="small"
+                              variant="outlined"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                window.open(`https://www.youtube.com/watch?v=${exercise.videoId}`, '_blank');
+                                window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(exercise.name + ' exercise')}`, '_blank');
                               }}
+                              className="kinetic-button-ghost"
                               sx={{
-                                background: 'linear-gradient(45deg, #FF2625 0%, #FF8A00 90%)',
-                                color: 'white',
-                                minWidth: 'auto',
-                                px: 1.5,
-                                py: 0.5,
-                                fontSize: '0.75rem',
-                                fontWeight: 700,
-                                '&:hover': {
-                                  background: 'linear-gradient(45deg, #CC1F1A 0%, #E67C00 90%)'
-                                }
+                                px: 3,
+                                py: 1,
+                                fontSize: '11px',
+                                letterSpacing: '0.15em',
                               }}
                             >
-                              Watch on YouTube
+                              Search YouTube
                             </Button>
                           </Box>
-                        </Box>
-                      ) : (
-                        <Box sx={{ 
-                          display: 'flex', 
-                          justifyContent: 'center', 
-                          alignItems: 'center',
-                          height: '100%',
-                          p: 4,
-                          textAlign: 'center',
-                          flexDirection: 'column',
-                          gap: 2,
-                          background: 'linear-gradient(45deg, rgba(255,38,37,0.05) 0%, rgba(255,138,0,0.05) 100%)'
-                        }}>
-                          <Typography color="#FF2625" variant="h6" fontWeight={700}>
-                            Video Tutorial Not Available
-                          </Typography>
-                          <Typography color="text.secondary" variant="body1">
-                            We couldn't find a video for this exercise. Try searching YouTube for "{exercise.name} exercise".
-                          </Typography>
-                          <Button
-                            variant="outlined"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(exercise.name + ' exercise')}`, '_blank');
-                            }}
-                            sx={{
-                              borderColor: '#FF2625',
-                              color: '#FF2625',
-                              fontWeight: 600,
-                              '&:hover': {
-                                backgroundColor: 'rgba(255, 38, 37, 0.1)',
-                                borderColor: '#FF8A00'
-                              }
-                            }}
-                          >
-                            Search YouTube
-                          </Button>
-                        </Box>
-                      )}
+                        )}
+                      </Box>
                     </Box>
-                  </Box>
-                </ExerciseCard>
-              ))}
-            </Stack>
-            
-            {exercises.length > exercisesPerPage && (
-              <Box sx={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                alignItems: 'center',
-                mt: 6,
-                py: 4,
-                flexDirection: 'column',
-                gap: 3
-              }}>
-                <Typography variant="body1" color="#FF2625" fontWeight={600}>
-                  Showing {indexOfFirstExercise + 1} - {Math.min(indexOfLastExercise, exercises.length)} of {exercises.length} exercises
-                </Typography>
-                <CustomPagination
-                  count={totalPages}
-                  page={currentPage}
-                  onChange={handlePageChange}
-                  size="large"
-                  shape="rounded"
-                  showFirstButton
-                  showLastButton
-                  siblingCount={2}
-                  boundaryCount={1}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      slots={{ 
-                        previous: ChevronLeft, 
-                        next: ChevronRight,
-                        first: () => <Typography>First</Typography>,
-                        last: () => <Typography>Last</Typography>
-                      }}
-                      {...item}
-                    />
-                  )}
-                />
-              </Box>
-            )}
-          </>
-        )}
-      </Box>
-    </Stack>
+                  </ExerciseCard>
+                ))}
+              </Stack>
+
+              {exercises.length > exercisesPerPage && (
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  mt: 6,
+                  py: 4,
+                  flexDirection: 'column',
+                  gap: 3
+                }}>
+                  <Typography variant="body2" color="#ffb59e" fontWeight={600} sx={{ fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '0.05em' }}>
+                    SHOWING {indexOfFirstExercise + 1} - {Math.min(indexOfLastExercise, exercises.length)} OF {exercises.length} EXERCISES
+                  </Typography>
+                  <CustomPagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={handlePageChange}
+                    size="large"
+                    shape="rounded"
+                    showFirstButton
+                    showLastButton
+                    siblingCount={2}
+                    boundaryCount={1}
+                    renderItem={(item) => (
+                      <PaginationItem
+                        slots={{
+                          previous: ChevronLeft,
+                          next: ChevronRight,
+                          first: () => <Typography sx={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '11px' }}>FIRST</Typography>,
+                          last: () => <Typography sx={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '11px' }}>LAST</Typography>
+                        }}
+                        {...item}
+                      />
+                    )}
+                  />
+                </Box>
+              )}
+            </>
+          )}
+        </Box>
+      </Stack>
+    </Box>
   );
 };
 
