@@ -33,6 +33,12 @@ This project is a fitness web application that helps users track workouts, plan 
 
 ---
 
+## Links
+The live URL is as follows 
+https://goldysfytness.netlify.app/
+
+---
+
 ## Features
 
 - User authentication (register / login)
@@ -55,28 +61,19 @@ This project is a fitness web application that helps users track workouts, plan 
 ---
 
 ## Screenshots
-
-> NOTE: Replace placeholders with real screenshots. Add files to assets/screenshots/ and update paths below.
-
 ### Landing / Home page
 
-![Landing placeholder](assets/screenshots/landing-placeholder.png)
-
-_Replace with a screenshot of the home or landing page._
+<img width="2560" height="3944" alt="goldysfytness netlify app_(Nest Hub Max)" src="https://github.com/user-attachments/assets/cb43362f-4e36-46e1-91ae-63484f15587d" />
 
 ### Dashboard / Progress
 
-![Dashboard placeholder](assets/screenshots/dashboard-placeholder.png)
+<img width="2560" height="1600" alt="goldysfytness netlify app_MealPlanner(Nest Hub Max)" src="https://github.com/user-attachments/assets/07705aae-ce54-4641-a2b4-adcad5712f0e" />
 
-_Replace with a screenshot showing charts or progress._
 
 ### Workout Editor
 
-![Editor placeholder](assets/screenshots/editor-placeholder.png)
+<img width="2560" height="1600" alt="goldysfytness netlify app_MealPlanner(Nest Hub Max) (1)" src="https://github.com/user-attachments/assets/3767ac7f-9318-4770-b621-55925b991d63" />
 
-_Replace with the workout editor or session logger screenshot._
-
----
 
 ## Getting Started
 
